@@ -1,12 +1,45 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Menu, Youtube } from "lucide-react"
+import { Youtube, Menu, User } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import type React from "react"
+import { useState, useEffect } from "react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
+  // This would be replaced with your actual auth state management
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const pathname = usePathname()
+
+  // Simulate checking auth state on client side
+  useEffect(() => {
+    // Check if user is logged in - this is just a simulation
+    // In a real app, you would check your auth provider's state
+    const checkAuth = () => {
+      // For demo purposes, we'll consider the user logged in if they've visited the sign-in page
+      if (pathname === "/sign-in" || pathname === "/get-started") {
+        setIsLoggedIn(true)
+      }
+    }
+
+    checkAuth()
+  }, [pathname])
+
+  const handleSignOut = () => {
+    // In a real app, you would sign out the user via your auth provider
+    setIsLoggedIn(false)
+  }
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -29,10 +62,49 @@ export default function Navbar() {
       </div>
 
       <div className="hidden md:flex items-center space-x-4">
-        <Button variant="ghost" className="text-white hover:text-red-400">
-          Sign In
-        </Button>
-        <Button className="bg-red-600 hover:bg-red-700 text-white">Get Started</Button>
+        {isLoggedIn ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-white hover:text-red-400 rounded-full h-10 w-10 p-0">
+                <User className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-black/90 border-white/20 text-white">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-white/20" />
+              <DropdownMenuItem className="hover:bg-white/10 cursor-pointer">
+                <Link href="/dashboard" className="w-full">
+                  Dashboard
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-white/10 cursor-pointer">
+                <Link href="/profile" className="w-full">
+                  Profile
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-white/10 cursor-pointer">
+                <Link href="/settings" className="w-full">
+                  Settings
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-white/20" />
+              <DropdownMenuItem className="hover:bg-white/10 cursor-pointer" onClick={handleSignOut}>
+                Sign out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <>
+            <Link href="/sign-in">
+              <Button variant="ghost" className="text-white hover:text-red-400">
+                Sign In
+              </Button>
+            </Link>
+            <Link href="/get-started">
+              <Button className="bg-red-600 hover:bg-red-700 text-white">Get Started</Button>
+            </Link>
+          </>
+        )}
       </div>
 
       <Button variant="ghost" size="icon" className="md:hidden text-white">
