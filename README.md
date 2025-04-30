@@ -1,6 +1,6 @@
 # YouTube Video Analyzer
 
-![YouTube Video Analyzer](https://hebbkx1anhila5yf.public.blob.vercel-storage.com/placeholder-ob7miW3mUreePYfXdVwkpFWHthzoR5.svg?height=300&width=800)
+![YouTube Video Analyzer](https://imgur.com/kMtWCuk?height=300&width=800)
 
 A modern Next.js application that uses AI to analyze YouTube videos, providing summaries, key points, and sentiment analysis.
 
