@@ -1,6 +1,6 @@
 # YouTube Video Analyzer
 
-![YouTube Video Analyzer][Imgur](https://imgur.com/kMtWCuk)
+![YouTube Video Analyzer](https://i.imgur.com/kMtWCuk.png)
 
 A modern Next.js application that uses AI to analyze YouTube videos, providing summaries, key points, and sentiment analysis.
 
